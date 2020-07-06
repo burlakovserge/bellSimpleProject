@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +13,7 @@ import java.util.Set;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "first_name", nullable = false)
@@ -34,56 +31,18 @@ public class Person {
     @Column(name = "work_position", nullable = false)
     private String workPosition;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "Person_Document",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "document_id")
-    )
-    private Set<Document> documents;
+    @OneToOne
+    @JoinColumn(name = "citizenship_id", nullable = false)
+    private Citizenship citizenship;
 
-    @Column(name = "doc_number")
-    private String docNumber;
+    @OneToOne
+    @JoinColumn(name = "document_id", nullable = false)
+    private Document document;
 
-    @Column(name = "doc_date")
-    private LocalDate docDate;
-
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "Person_Citizenship",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "citizenship_id")
-    )
-    private Set<Citizenship> citizenships;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id", nullable = false)
+    private Office office;
 
     @Column(name = "is_identified")
     private boolean isIdentified;
-
-    @JoinColumn(name = "office_id", nullable = false)
-    @ManyToOne(optional =  false, cascade = CascadeType.ALL)
-    private Office office;
-
-    public Person(Integer id, String firstName, String secondName, String middleName, String phone, String workPosition, Set<Document> documents, String docNumber, LocalDate docDate, Set<Citizenship> citizenships, boolean isIdentified) {
-        this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.middleName = middleName;
-        this.phone = phone;
-        this.workPosition = workPosition;
-        this.documents = documents;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
-        this.citizenships = citizenships;
-        this.isIdentified = isIdentified;
-    }
 }

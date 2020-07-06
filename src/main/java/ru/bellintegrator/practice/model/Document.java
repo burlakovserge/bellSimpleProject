@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -14,7 +14,6 @@ import java.util.Set;
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
     private Integer id;
 
     @Column(name = "name", nullable = false)
@@ -23,6 +22,10 @@ public class Document {
     @Column(name = "code", nullable = false)
     private Short code;
 
-    @ManyToMany(mappedBy = "documents")
-    private Set<Person> persons;
+    @Column(name = "number")
+    private String number;
+
+    @Column(name = "doc_date")
+    private LocalDate date;
+
 }

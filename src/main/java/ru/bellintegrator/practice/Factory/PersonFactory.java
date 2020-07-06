@@ -18,17 +18,17 @@ public class PersonFactory {
 
     public Person convertFromDto(PersonDto personDto) {
         return new Person(
-                personDto.getId(),
-                personDto.getFirstName(),
-                personDto.getSecondName(),
-                personDto.getMiddleName(),
-                personDto.getPhone(),
-                personDto.getWorkPosition(),
-                personDto.getDocuments(),
-                personDto.getDocNumber(),
-                personDto.getDocDate(),
-                personDto.getCitizenships(),
-                personDto.isIdentified()
+//                personDto.getId(),
+//                personDto.getFirstName(),
+//                personDto.getSecondName(),
+//                personDto.getMiddleName(),
+//                personDto.getPhone(),
+//                personDto.getWorkPosition(),
+//                personDto.getDocuments(),
+//                personDto.getDocNumber(),
+//                personDto.getDocDate(),
+//                personDto.getCitizenships(),
+//                personDto.isIdentified()
         );
     }
 }

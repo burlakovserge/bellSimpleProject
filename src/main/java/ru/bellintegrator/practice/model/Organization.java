@@ -36,6 +36,5 @@ public class Organization {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
-    private List<Office> offices;
+   // private List<Office> offices;
 }

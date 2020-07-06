@@ -28,10 +28,9 @@ public class Office {
     @Column(name = "is_active")
     private boolean isActive;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id", nullable = false)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Organization organization;
 
-    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
-    private List<Person> persons;
+   // private List<Person> persons;
 }

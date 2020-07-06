@@ -23,7 +23,4 @@ public class Citizenship {
 
     @Column(name = "code", nullable = false)
     private Short code;
-
-    @ManyToMany(mappedBy = "citizenships")
-    private Set<Person> persons;
 }
