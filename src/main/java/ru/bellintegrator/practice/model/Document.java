@@ -20,7 +20,7 @@ public class Document {
     private String name;
 
     @Column(name = "code", nullable = false)
-    private Short code;
+    private String code;
 
     @Column(name = "number")
     private String number;

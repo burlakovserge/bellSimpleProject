@@ -22,5 +22,5 @@ public class Citizenship {
     private String name;
 
     @Column(name = "code", nullable = false)
-    private Short code;
+    private String code;
 }
