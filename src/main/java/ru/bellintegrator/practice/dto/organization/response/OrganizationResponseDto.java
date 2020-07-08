@@ -1,15 +1,13 @@
-package ru.bellintegrator.practice.dto.organization;
+package ru.bellintegrator.practice.dto.organization.response;
 
 import lombok.Builder;
 import lombok.Data;
 import ru.bellintegrator.practice.dto.Dto;
 
-import javax.persistence.Column;
-
 @Builder
 @Data
 public class OrganizationResponseDto implements Dto {
-    private int id;
+    private Integer id;
 
     private String name;
 
