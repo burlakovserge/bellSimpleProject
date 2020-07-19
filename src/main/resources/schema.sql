@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS Person (
-  id         INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-  first_name  VARCHAR(50) NOT NULL    COMMENT 'Имя',
-  second_name VARCHAR(50)             COMMENT 'Фамилия',
-  middle_name VARCHAR(50)             COMMENT 'Отчество',
-  phone       VARCHAR(30) COMMENT 'Телефон',
-  work_position   VARCHAR(50) NOT NULL    COMMENT 'Должность',
-  citizenship_id  INTEGER NOT NULL    COMMENT 'ID гражданства',
-  document_id     INTEGER NOT NULL    COMMENT 'ID документа удостоверяющего личность',
-  office_id       INTEGER NOT NULL    COMMENT 'ID оффиса',
-  is_identified   BIT
+  id                INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+  first_name        VARCHAR(50) NOT NULL    COMMENT 'Имя',
+  second_name       VARCHAR(50)             COMMENT 'Фамилия',
+  middle_name       VARCHAR(50)             COMMENT 'Отчество',
+  phone             VARCHAR(30)             COMMENT 'Телефон',
+  work_position     VARCHAR(50) NOT NULL    COMMENT 'Должность',
+  citizenship_id    INTEGER     NOT NULL    COMMENT 'ID гражданства',
+  document_id       INTEGER     NOT NULL    COMMENT 'ID документа удостоверяющего личность',
+  office_id         INTEGER     NOT NULL    COMMENT 'ID оффиса',
+  is_identified     BIT
 );
 COMMENT ON TABLE Person IS 'Человек';
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Organization (
   name      VARCHAR(50)  NOT NULL COMMENT '',
   full_name VARCHAR(200) NOT NULL COMMENT '',
   inn       VARCHAR(20)  NOT NULL COMMENT '',
-  kpp       VARCHAR (10) NOT NULL COMMENT '',
+  kpp       VARCHAR(10)  NOT NULL COMMENT '',
   address   VARCHAR(50)  NOT NULL COMMENT '',
   phone     VARCHAR(30),
   is_active BIT
@@ -35,20 +35,26 @@ CREATE TABLE IF NOT EXISTS Organization (
 COMMENT ON TABLE Organization IS 'Организация';
 
 CREATE TABLE IF NOT EXISTS Citizenship (
-   id INTEGER ,
-   country VARCHAR(25) NOT NULL ,
-   code SMALLINT NOT NULL
+   id       INTEGER               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   country  VARCHAR(25) NOT NULL,
+   code     VARCHAR(25) NOT NULL
 );
 COMMENT ON TABLE Citizenship IS 'Гражданство';
 
 CREATE TABLE IF NOT EXISTS Document (
-   id INTEGER  COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-   name VARCHAR(120) NOT NULL,
-   code SMALLINT NOT NULL,
-   number    VARCHAR(30)  NOT NULL COMMENT 'Номер документа',
-   doc_date    DATE NOT NULL COMMENT 'Дата документа'
+   id               INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   number           VARCHAR(30) NOT NULL COMMENT 'Номер документа',
+   doc_date         DATE        NOT NULL COMMENT 'Дата документа',
+   catalogue_docs_id INTEGER     NOT NULL COMMENT 'ID документа в каталоге документов'
 );
 COMMENT ON TABLE Document IS 'Документ удостоверяющий личность';
+
+CREATE TABLE IF NOT EXISTS Catalogue_Docs (
+   id       INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   name     VARCHAR(120) NOT NULL,
+   code     VARCHAR(25)  NOT NULL
+);
+COMMENT ON TABLE Catalogue_Docs IS 'Каталог документов';
 
 CREATE INDEX IX_Person_Office_Id ON Person (office_id);
 ALTER TABLE Person ADD FOREIGN KEY (office_id) REFERENCES Office(id);
@@ -61,3 +67,6 @@ ALTER TABLE Person ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
 
 CREATE INDEX IX_Office_Organization_Id ON Office (org_id);
 ALTER TABLE Office ADD FOREIGN KEY (org_id) REFERENCES Organization(id);
+
+CREATE INDEX IX_Document_Catalogue_Docs_Id ON Document (catalogue_docs_id);
+ALTER TABLE Document ADD FOREIGN KEY (catalogue_docs_id) REFERENCES Catalogue_Docs(id);

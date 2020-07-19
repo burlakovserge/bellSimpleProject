@@ -5,29 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Organization {
+public class CatalogueDocs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "full_name")
-    private String fullname;
-
-    private String inn;
-
-    private String kpp;
-
-    private String address;
-
-    private String phone;
-
-    @Column(name = "is_active")
-    private boolean active;
+    @Column(name = "code", nullable = false)
+    private String code;
 }

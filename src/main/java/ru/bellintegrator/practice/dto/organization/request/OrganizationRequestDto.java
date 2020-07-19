@@ -31,5 +31,5 @@ public class OrganizationRequestDto implements Dto {
 
     private String phone;
 
-    private boolean isActive;
+    private boolean active;
 }
