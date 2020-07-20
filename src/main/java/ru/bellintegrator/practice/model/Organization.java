@@ -30,4 +30,14 @@ public class Organization {
 
     @Column(name = "is_active")
     private boolean active;
+
+    public Organization(String name, String fullname, String inn, String kpp, String address, String phone, boolean active) {
+        this.name = name;
+        this.fullname = fullname;
+        this.inn = inn;
+        this.kpp = kpp;
+        this.address = address;
+        this.phone = phone;
+        this.active = active;
+    }
 }

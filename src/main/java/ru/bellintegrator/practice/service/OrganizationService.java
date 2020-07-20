@@ -1,18 +1,18 @@
 package ru.bellintegrator.practice.service;
 
 import ru.bellintegrator.practice.dto.Dto;
-import ru.bellintegrator.practice.dto.organization.request.OrganizationRequestDto;
-import ru.bellintegrator.practice.dto.organization.response.OrganizationResponseDto;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.utils.ResponseView;
 
 import java.util.List;
 
 public interface OrganizationService {
-    OrganizationResponseDto findById(Integer id);
+    Dto findById(Integer id);
 
-    ResponseView update(OrganizationRequestDto organization);
+    ResponseView update(UpdateRequestDto organization);
 
-    ResponseView save(OrganizationRequestDto organization);
+    ResponseView save(Dto organization);
 
-    List<OrganizationResponseDto> getAll();
+    List<Dto> getAll(FilterRequestDto filterRequest);
 }

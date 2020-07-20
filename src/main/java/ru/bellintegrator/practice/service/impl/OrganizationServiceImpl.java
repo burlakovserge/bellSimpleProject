@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.Factory.OrganizationFactory;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
-import ru.bellintegrator.practice.dto.organization.request.OrganizationRequestDto;
+import ru.bellintegrator.practice.dto.Dto;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.dto.organization.response.OrganizationResponseDto;
-import ru.bellintegrator.practice.utils.ResponseView;
 import ru.bellintegrator.practice.service.OrganizationService;
+import ru.bellintegrator.practice.utils.ResponseView;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -25,27 +28,30 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public OrganizationResponseDto findById(Integer id) {
+    public Dto findById(Integer id) {
         return OrganizationFactory.convert(dao.findById(id));
     }
 
     @Override
     @Transactional
-    public ResponseView update(OrganizationRequestDto organization) {
-                 dao.update(factory.convert(organization));
+    public ResponseView update(UpdateRequestDto requestDto) {
+        OrganizationResponseDto currentOrg = (OrganizationResponseDto) findById(requestDto.getId());
+        if (requestDto.getPhone() == null) {
+            requestDto.setPhone(currentOrg.getPhone());
+        }
+        dao.update(factory.convert(requestDto));
         return new ResponseView("success");
     }
 
     @Override
     @Transactional
-    public ResponseView save(OrganizationRequestDto organization) {
-        dao.save(factory.convert(organization));
+    public ResponseView save(Dto organization) {
+        dao.save(factory.convert((SaveRequestDto) organization));
         return new ResponseView("success");
     }
 
     @Override
-    public List<OrganizationResponseDto> getAll() {
-
-        return factory.getOrgsListDto(dao.getAll());
+    public List<Dto> getAll(FilterRequestDto filterRequest) {
+        return factory.getOrgsListDto(dao.getAll(filterRequest));
     }
 }

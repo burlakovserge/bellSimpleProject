@@ -3,8 +3,10 @@ package ru.bellintegrator.practice.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.practice.dto.organization.request.OrganizationRequestDto;
-import ru.bellintegrator.practice.dto.organization.response.OrganizationResponseDto;
+import ru.bellintegrator.practice.dto.Dto;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
 import ru.bellintegrator.practice.utils.ResponseView;
 import ru.bellintegrator.practice.service.OrganizationService;
 
@@ -26,23 +28,25 @@ public class OrganizationController {
     }
 
     @GetMapping("/{id}")
-    public OrganizationResponseDto getOrgById(@PathVariable("id") Integer id) {
+    public Dto getById(@PathVariable("id") Integer id) {
         return service.findById(id);
     }
 
     @PostMapping("/update")
-    public ResponseView updateOrganization(@Valid @RequestBody OrganizationRequestDto organization) {
-        return service.update(organization);
+    public ResponseView updateOrganization(@Valid @RequestBody UpdateRequestDto organization) {
+        if (organization.getId() != null) {
+            return service.update(organization);
+        } else return new ResponseView("Не указан Id. Операция не выполнена");
     }
 
     @PostMapping("/save")
-    public ResponseView saveOrganization(@Valid @RequestBody OrganizationRequestDto organization) {
+    public ResponseView saveOrganization(@Valid @RequestBody SaveRequestDto organization) {
         return service.save(organization);
     }
 
     @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
-    @GetMapping("/list")
-    public List<OrganizationResponseDto> getAll(){
-        return service.getAll();
+    @PostMapping("/list")
+    public List<Dto> getAll(@Valid @RequestBody FilterRequestDto requestDto) {
+        return service.getAll(requestDto);
     }
 }

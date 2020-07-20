@@ -4,15 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 import ru.bellintegrator.practice.dto.Dto;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Builder
 @Data
-public class OrganizationRequestDto implements Dto {
-    @Min(value=1, message="required")
-    private Integer id;
+public class SaveRequestDto implements Dto {
 
     @NotEmpty(message= "please add name value")
     private String name;
