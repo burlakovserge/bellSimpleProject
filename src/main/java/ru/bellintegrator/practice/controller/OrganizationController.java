@@ -2,16 +2,20 @@ package ru.bellintegrator.practice.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.dto.Dto;
 import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
-import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
-import ru.bellintegrator.practice.utils.ResponseView;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.service.OrganizationService;
+import ru.bellintegrator.practice.utils.ResponseView;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -41,7 +45,7 @@ public class OrganizationController {
 
     @PostMapping("/save")
     public ResponseView saveOrganization(@Valid @RequestBody SaveRequestDto organization) {
-        return service.save(organization);
+        return service.add(organization);
     }
 
     @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)

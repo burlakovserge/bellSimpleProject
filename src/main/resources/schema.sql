@@ -24,13 +24,14 @@ COMMENT ON TABLE Office IS 'Офис';
 
 CREATE TABLE IF NOT EXISTS Organization (
   id        INTEGER               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT ,
-  name      VARCHAR(50)  NOT NULL COMMENT '',
-  full_name VARCHAR(200) NOT NULL COMMENT '',
-  inn       VARCHAR(20)  NOT NULL COMMENT '',
-  kpp       VARCHAR(10)  NOT NULL COMMENT '',
-  address   VARCHAR(50)  NOT NULL COMMENT '',
-  phone     VARCHAR(30),
-  is_active BIT
+  version   INTEGER      NOT NULL COMMENT 'Служебное поле hibernate',
+  name      VARCHAR(50)  NOT NULL COMMENT 'Сокращенное название организации',
+  full_name VARCHAR(200) NOT NULL COMMENT 'Полное наименование организации, с формой собственности',
+  inn       VARCHAR(20)  NOT NULL COMMENT 'ИНН',
+  kpp       VARCHAR(10)  NOT NULL COMMENT 'КПП',
+  address   VARCHAR(50)  NOT NULL COMMENT 'Юридический адрес',
+  phone     VARCHAR(30)           COMMENT 'Телефон',
+  is_active BIT                   COMMENT 'Ведет деятельность или нет'
 );
 COMMENT ON TABLE Organization IS 'Организация';
 

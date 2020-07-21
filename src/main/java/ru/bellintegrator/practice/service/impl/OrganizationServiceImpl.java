@@ -2,7 +2,7 @@ package ru.bellintegrator.practice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.bellintegrator.practice.Factory.OrganizationFactory;
+import ru.bellintegrator.practice.Mapper.OrganizationMapper;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.dto.Dto;
 import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
@@ -15,23 +15,32 @@ import ru.bellintegrator.practice.utils.ResponseView;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
     OrganizationDao dao;
-    OrganizationFactory factory;
+    OrganizationMapper factory;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDao dao, OrganizationFactory factory) {
+    public OrganizationServiceImpl(OrganizationDao dao, OrganizationMapper factory) {
         this.dao = dao;
         this.factory = factory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dto findById(Integer id) {
-        return OrganizationFactory.convert(dao.findById(id));
+        return OrganizationMapper.convert(dao.findById(id));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public ResponseView update(UpdateRequestDto requestDto) {
@@ -43,13 +52,19 @@ public class OrganizationServiceImpl implements OrganizationService {
         return new ResponseView("success");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
-    public ResponseView save(Dto organization) {
-        dao.save(factory.convert((SaveRequestDto) organization));
+    public ResponseView add(Dto organization) {
+        dao.add(factory.convert((SaveRequestDto) organization));
         return new ResponseView("success");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Dto> getAll(FilterRequestDto filterRequest) {
         return factory.getOrgsListDto(dao.getAll(filterRequest));
