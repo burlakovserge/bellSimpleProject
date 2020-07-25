@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import ru.bellintegrator.practice.dto.Dto;
 
+import javax.persistence.Column;
+
 @Builder
 @Data
 public class OrganizationResponseDto implements Dto {
@@ -14,7 +16,8 @@ public class OrganizationResponseDto implements Dto {
     @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
     private String name;
 
-    private String fullname;
+    @Column(name = "full_name")
+    private String fullName;
 
     private String inn;
 
@@ -25,5 +28,5 @@ public class OrganizationResponseDto implements Dto {
     private String phone;
 
     @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
-    private boolean active;
+    private Boolean isActive;
 }

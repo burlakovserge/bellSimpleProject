@@ -15,5 +15,5 @@ public class FilterRequestDto implements Dto {
 
     private String inn;
 
-    private boolean active;
+    private Boolean isActive;
 }

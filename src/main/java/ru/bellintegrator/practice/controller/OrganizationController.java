@@ -13,7 +13,6 @@ import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.service.OrganizationService;
-import ru.bellintegrator.practice.utils.ResponseView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,15 +36,13 @@ public class OrganizationController {
     }
 
     @PostMapping("/update")
-    public ResponseView updateOrganization(@Valid @RequestBody UpdateRequestDto organization) {
-        if (organization.getId() != null) {
-            return service.update(organization);
-        } else return new ResponseView("Не указан Id. Операция не выполнена");
+    public void updateOrganization(@Valid @RequestBody UpdateRequestDto organization) {
+        service.update(organization);
     }
 
     @PostMapping("/save")
-    public ResponseView saveOrganization(@Valid @RequestBody SaveRequestDto organization) {
-        return service.add(organization);
+    public void saveOrganization(@Valid @RequestBody SaveRequestDto organization) {
+        service.add(organization);
     }
 
     @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)

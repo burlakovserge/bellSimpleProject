@@ -1,10 +1,16 @@
 package ru.bellintegrator.practice.utils;
 
-public class ResponseView {
+import org.springframework.stereotype.Component;
+
+
+public class ResponseVoidMethod {
     private String result;
 
-    public ResponseView(String result) {
+    public ResponseVoidMethod(String result) {
         this.result = result;
+    }
+
+    public ResponseVoidMethod() {
     }
 
     public String getResult() {

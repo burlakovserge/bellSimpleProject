@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS Citizenship (
 COMMENT ON TABLE Citizenship IS 'Гражданство';
 
 CREATE TABLE IF NOT EXISTS Document (
-   id               INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-   number           VARCHAR(30) NOT NULL COMMENT 'Номер документа',
-   doc_date         DATE        NOT NULL COMMENT 'Дата документа',
+   id                INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   number            VARCHAR(30) NOT NULL COMMENT 'Номер документа',
+   doc_date          DATE        NOT NULL COMMENT 'Дата документа',
    catalogue_docs_id INTEGER     NOT NULL COMMENT 'ID документа в каталоге документов'
 );
 COMMENT ON TABLE Document IS 'Документ удостоверяющий личность';

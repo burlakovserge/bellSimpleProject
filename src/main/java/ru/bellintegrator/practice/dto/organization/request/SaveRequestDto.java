@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.dto.organization.request;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.bellintegrator.practice.dto.Dto;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,7 +15,7 @@ public class SaveRequestDto implements Dto {
     private String name;
 
     @NotEmpty(message = "please add full name value")
-    private String fullname;
+    private String fullName;
 
     @NotEmpty(message = "please add inn value")
     private String inn;
@@ -27,5 +28,5 @@ public class SaveRequestDto implements Dto {
 
     private String phone;
 
-    private boolean active;
+    private Boolean isActive;
 }

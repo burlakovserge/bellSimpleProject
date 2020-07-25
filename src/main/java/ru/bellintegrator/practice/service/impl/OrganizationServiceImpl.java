@@ -2,17 +2,18 @@ package ru.bellintegrator.practice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.bellintegrator.practice.Mapper.OrganizationMapper;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.dto.Dto;
 import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
 import ru.bellintegrator.practice.dto.organization.response.OrganizationResponseDto;
+import ru.bellintegrator.practice.mapper.OrganizationMapper;
 import ru.bellintegrator.practice.service.OrganizationService;
-import ru.bellintegrator.practice.utils.ResponseView;
+import ru.bellintegrator.practice.utils.ResponseVoidMethod;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -22,18 +23,19 @@ import java.util.List;
 public class OrganizationServiceImpl implements OrganizationService {
 
     OrganizationDao dao;
-    OrganizationMapper factory;
+    OrganizationMapper mapper;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDao dao, OrganizationMapper factory) {
+    public OrganizationServiceImpl(OrganizationDao dao, OrganizationMapper mapper) {
         this.dao = dao;
-        this.factory = factory;
+        this.mapper = mapper;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @Transactional (isolation=Isolation.READ_COMMITTED)
     public Dto findById(Integer id) {
         return OrganizationMapper.convert(dao.findById(id));
     }
@@ -42,24 +44,22 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    @Transactional
-    public ResponseView update(UpdateRequestDto requestDto) {
+    @Transactional (isolation=Isolation.READ_COMMITTED)
+    public void update(UpdateRequestDto requestDto) {
         OrganizationResponseDto currentOrg = (OrganizationResponseDto) findById(requestDto.getId());
         if (requestDto.getPhone() == null) {
             requestDto.setPhone(currentOrg.getPhone());
         }
-        dao.update(factory.convert(requestDto));
-        return new ResponseView("success");
+        dao.update(mapper.convert(requestDto));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional
-    public ResponseView add(Dto organization) {
-        dao.add(factory.convert((SaveRequestDto) organization));
-        return new ResponseView("success");
+    @Transactional (isolation= Isolation.READ_COMMITTED)
+    public void add(Dto organization) {
+        dao.add(mapper.convert((SaveRequestDto) organization));
     }
 
     /**
@@ -67,6 +67,6 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public List<Dto> getAll(FilterRequestDto filterRequest) {
-        return factory.getOrgsListDto(dao.getAll(filterRequest));
+        return mapper.getOrgsListDto(dao.getAll(filterRequest));
     }
 }

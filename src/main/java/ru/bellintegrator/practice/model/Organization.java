@@ -30,6 +30,7 @@ public class Organization {
      * Служебное поле hibernate
      */
     @Version
+    @Setter(AccessLevel.NONE)
     private Integer version;
 
     /**
@@ -72,19 +73,19 @@ public class Organization {
      * Ведет деятельность или нет
      */
     @Column(name = "is_active")
-    private boolean active;
+    private Boolean isActive;
 
-    public Organization(String name, String fullName, String inn, String kpp, String address, String phone, boolean active) {
+    public Organization(String name, String fullName, String inn, String kpp, String address, String phone, Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
         this.address = address;
         this.phone = phone;
-        this.active = active;
+        this.isActive = isActive;
     }
 
-    public Organization(Integer id, String name, String fullName, String inn, String kpp, String address, String phone, boolean active) {
+    public Organization(Integer id, String name, String fullName, String inn, String kpp, String address, String phone, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;
@@ -92,6 +93,6 @@ public class Organization {
         this.kpp = kpp;
         this.address = address;
         this.phone = phone;
-        this.active = active;
+        this.isActive = isActive;
     }
 }

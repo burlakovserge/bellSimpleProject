@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.Mapper;
+package ru.bellintegrator.practice.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.bellintegrator.practice.dto.Dto;
@@ -26,12 +26,12 @@ public class OrganizationMapper {
         return OrganizationResponseDto.builder()
                 .id(obj.getId())
                 .name(obj.getName())
-                .fullname(obj.getFullName())
+                .fullName(obj.getFullName())
                 .inn(obj.getInn())
                 .kpp(obj.getKpp())
                 .address(obj.getAddress())
                 .phone(obj.getPhone())
-                .active(obj.isActive())
+                .isActive(obj.getIsActive())
                 .build();
     }
 
@@ -41,16 +41,16 @@ public class OrganizationMapper {
      * @param obj - дто организации
      * @return возвращает организацию
      */
-    public Organization convert(UpdateRequestDto obj) {
+    public static Organization convert(UpdateRequestDto obj) {
         return new Organization(
                 obj.getId(),
                 obj.getName(),
-                obj.getFullname(),
+                obj.getFullName(),
                 obj.getInn(),
                 obj.getKpp(),
                 obj.getAddress(),
                 obj.getPhone(),
-                obj.isActive());
+                obj.getIsActive());
     }
 
     /**
@@ -62,12 +62,12 @@ public class OrganizationMapper {
     public Organization convert(SaveRequestDto obj) {
         return new Organization(
                 obj.getName(),
-                obj.getFullname(),
+                obj.getFullName(),
                 obj.getInn(),
                 obj.getKpp(),
                 obj.getAddress(),
                 obj.getPhone(),
-                obj.isActive());
+                obj.getIsActive());
     }
 
     /**

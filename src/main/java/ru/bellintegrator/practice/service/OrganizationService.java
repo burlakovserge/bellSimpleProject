@@ -3,7 +3,7 @@ package ru.bellintegrator.practice.service;
 import ru.bellintegrator.practice.dto.Dto;
 import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
 import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
-import ru.bellintegrator.practice.utils.ResponseView;
+import ru.bellintegrator.practice.utils.ResponseVoidMethod;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface OrganizationService {
      * @param organization - организация
      * @return возвращает сообщение клиенту
      */
-    ResponseView update(UpdateRequestDto organization);
+    void update(UpdateRequestDto organization);
 
     /**
      * Добавить новую Organization в БД
@@ -33,7 +33,7 @@ public interface OrganizationService {
      * @param organization организация
      * @return возвращает сообщение клиенту
      */
-    ResponseView add(Dto organization);
+    void add(Dto organization);
 
     /**
      * Получить фильтрованый список Organization

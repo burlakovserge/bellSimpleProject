@@ -9,8 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
         criteriaQuery.select(org);
         criteriaQuery.where(cb.equal(org.get("id"), id));
         TypedQuery<Organization> query = em.createQuery(criteriaQuery);
+
         return query.getSingleResult();
     }
 
@@ -67,13 +69,24 @@ public class OrganizationDaoImpl implements OrganizationDao {
         Root<Organization> org = criteriaQuery.from(Organization.class);
 
         criteriaQuery.select(org);
-        criteriaQuery.where(cb.equal(org.get("name"), filterRequest.getName()));
-        if (filterRequest.getInn() != null) {
-            criteriaQuery.where(cb.equal(org.get("inn"), filterRequest.getInn()));
-        }
-        criteriaQuery.where(cb.equal(org.get("active"), filterRequest.isActive()));
 
-        TypedQuery<Organization> query = em.createQuery(criteriaQuery);
-        return query.getResultList();
+        List<Predicate> list = new ArrayList<>();
+
+        if (filterRequest.getName() != null) {
+           list.add(cb.equal(org.get("name"), filterRequest.getName()));
+        }
+        if (filterRequest.getInn() != null) {
+            list.add(cb.equal(org.get("inn"), filterRequest.getInn()));
+        }
+        if (filterRequest.getIsActive() != null) {
+            list.add(cb.equal(org.get("isActive"), filterRequest.getIsActive()));
+        }
+
+        Predicate[] arr = new Predicate[list.size()];
+        list.toArray(arr);
+        Predicate finalPredicate = cb.and(arr);
+        criteriaQuery.where(finalPredicate);
+
+        return em.createQuery(criteriaQuery).getResultList();
     }
 }

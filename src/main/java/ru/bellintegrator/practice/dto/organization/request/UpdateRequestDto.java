@@ -17,7 +17,7 @@ public class UpdateRequestDto implements Dto {
     private String name;
 
     @NotEmpty(message = "please add full name value")
-    private String fullname;
+    private String fullName;
 
     @NotEmpty(message = "please add inn value")
     private String inn;
@@ -30,5 +30,5 @@ public class UpdateRequestDto implements Dto {
 
     private String phone;
 
-    private boolean active;
+    private Boolean isActive;
 }
