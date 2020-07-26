@@ -1,12 +1,13 @@
 package ru.bellintegrator.practice.utils;
 
-import org.springframework.stereotype.Component;
-
-public class SuccessResponse {
+public class ResponseSuccess {
     private Object data;
 
-    public SuccessResponse(Object data) {
+    public ResponseSuccess(Object data) {
         this.data = data;
+    }
+
+    public ResponseSuccess() {
     }
 
     public Object getData() {
@@ -16,7 +17,5 @@ public class SuccessResponse {
     public void setData(Object data) {
         this.data = data;
     }
-
-    public SuccessResponse() {
-    }
 }
+

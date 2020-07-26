@@ -2,7 +2,7 @@ package ru.bellintegrator.practice.dao.organization;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestOrgDto;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -63,7 +63,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> getAll(FilterRequestDto filterRequest) {
+    public List<Organization> getAll(FilterRequestOrgDto filterRequest) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = cb.createQuery(Organization.class);
         Root<Organization> org = criteriaQuery.from(Organization.class);

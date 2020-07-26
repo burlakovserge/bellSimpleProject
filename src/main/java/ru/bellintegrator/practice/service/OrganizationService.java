@@ -1,9 +1,9 @@
 package ru.bellintegrator.practice.service;
 
 import ru.bellintegrator.practice.dto.Dto;
-import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
-import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
-import ru.bellintegrator.practice.utils.ResponseVoidMethod;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestOrgDto;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestOrgDto;
+import ru.bellintegrator.practice.dto.organization.response.ResponseOrgDtoMappingList;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface OrganizationService {
      * @param organization - организация
      * @return возвращает сообщение клиенту
      */
-    void update(UpdateRequestDto organization);
+    void update(UpdateRequestOrgDto organization);
 
     /**
      * Добавить новую Organization в БД
@@ -41,5 +41,5 @@ public interface OrganizationService {
      * @param filterRequest - объект с полями, по которым выполнять фильтрацию
      * @return возвращает список объектов по интерфейсу Dto
      */
-    List<Dto> getAll(FilterRequestDto filterRequest);
+    List<ResponseOrgDtoMappingList> getAll(FilterRequestOrgDto filterRequest);
 }

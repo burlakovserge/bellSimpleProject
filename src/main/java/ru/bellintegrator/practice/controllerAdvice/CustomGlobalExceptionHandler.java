@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.exception;
+package ru.bellintegrator.practice.controllerAdvice;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;

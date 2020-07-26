@@ -1,18 +1,18 @@
 package ru.bellintegrator.practice.service.impl;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.dto.Dto;
-import ru.bellintegrator.practice.dto.organization.request.FilterRequestDto;
-import ru.bellintegrator.practice.dto.organization.request.SaveRequestDto;
-import ru.bellintegrator.practice.dto.organization.request.UpdateRequestDto;
-import ru.bellintegrator.practice.dto.organization.response.OrganizationResponseDto;
-import ru.bellintegrator.practice.mapper.OrganizationMapper;
+import ru.bellintegrator.practice.dto.organization.request.FilterRequestOrgDto;
+import ru.bellintegrator.practice.dto.organization.request.UpdateRequestOrgDto;
+import ru.bellintegrator.practice.dto.organization.response.ResponseOrgDtoMappingId;
+import ru.bellintegrator.practice.dto.organization.response.ResponseOrgDtoMappingList;
+import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.service.OrganizationService;
-import ru.bellintegrator.practice.utils.ResponseVoidMethod;
 
 import java.util.List;
 
@@ -23,50 +23,57 @@ import java.util.List;
 public class OrganizationServiceImpl implements OrganizationService {
 
     OrganizationDao dao;
-    OrganizationMapper mapper;
+    ModelMapper modelMapper;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDao dao, OrganizationMapper mapper) {
+    public OrganizationServiceImpl(OrganizationDao dao, ModelMapper modelMapper) {
         this.dao = dao;
-        this.mapper = mapper;
+        this.modelMapper = modelMapper;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional (isolation=Isolation.READ_COMMITTED)
+    @Transactional
     public Dto findById(Integer id) {
-        return OrganizationMapper.convert(dao.findById(id));
+        ResponseOrgDtoMappingId response = modelMapper.map(dao.findById(id), ResponseOrgDtoMappingId.class);
+        return response;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional (isolation=Isolation.READ_COMMITTED)
-    public void update(UpdateRequestDto requestDto) {
-        OrganizationResponseDto currentOrg = (OrganizationResponseDto) findById(requestDto.getId());
+    @Transactional
+    public void update(UpdateRequestOrgDto requestDto) {
+        Organization currentOrg = dao.findById(requestDto.getId());
         if (requestDto.getPhone() == null) {
             requestDto.setPhone(currentOrg.getPhone());
         }
-        dao.update(mapper.convert(requestDto));
+        Organization updatedOrg = modelMapper.map(requestDto, Organization.class);
+        dao.update(updatedOrg);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional (isolation= Isolation.READ_COMMITTED)
-    public void add(Dto organization) {
-        dao.add(mapper.convert((SaveRequestDto) organization));
+    @Transactional
+    public void add(Dto requestOrg) {
+        Organization organization = modelMapper.map(requestOrg, Organization.class);
+        dao.add(organization);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Dto> getAll(FilterRequestDto filterRequest) {
-        return mapper.getOrgsListDto(dao.getAll(filterRequest));
+    public List<ResponseOrgDtoMappingList> getAll(FilterRequestOrgDto filterRequest) {
+        List<Organization> orgList = dao.getAll(filterRequest);
+        List<ResponseOrgDtoMappingList> respList = modelMapper.map(orgList,
+                new TypeToken<List<ResponseOrgDtoMappingList>>() {
+                }.getType());
+        return respList;
     }
 }

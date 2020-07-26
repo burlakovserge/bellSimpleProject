@@ -1,17 +1,17 @@
 package ru.bellintegrator.practice.dto.organization.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.bellintegrator.practice.dto.Dto;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-@Builder
 @Data
-public class UpdateRequestDto implements Dto {
-    @Min(value = 1, message = "please add id value")
-    private Integer id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class SaveRequestOrgDto implements Dto {
 
     @NotEmpty(message = "please add name value")
     private String name;

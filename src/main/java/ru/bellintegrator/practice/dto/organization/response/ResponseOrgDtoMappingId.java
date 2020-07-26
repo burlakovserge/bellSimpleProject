@@ -1,19 +1,18 @@
 package ru.bellintegrator.practice.dto.organization.response;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.bellintegrator.practice.dto.Dto;
 
 import javax.persistence.Column;
 
-@Builder
 @Data
-public class OrganizationResponseDto implements Dto {
-    @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResponseOrgDtoMappingId implements Dto {
     private Integer id;
 
-    @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
     private String name;
 
     @Column(name = "full_name")
@@ -27,6 +26,5 @@ public class OrganizationResponseDto implements Dto {
 
     private String phone;
 
-    @JsonView(ru.bellintegrator.practice.utils.JsonView.List.class)
     private Boolean isActive;
 }
