@@ -42,12 +42,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(NoResultException.class)
-    protected ResponseEntity<?> handleThereIsNoSuchUserException(NoResultException ex) {
+    protected ResponseEntity<?> handleThereIsNoSuchResultException(NoResultException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date().toString());
-        body.put("errors", ex.getMessage());
+        body.put("errors", "error code A101");
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-        //return new ResponseEntity<>(new ResponseView("ID incorrect"), HttpStatus.NOT_FOUND);
     }
 }

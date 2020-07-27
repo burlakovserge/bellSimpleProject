@@ -9,5 +9,4 @@ public class BellIntegratorPracticeApplication {
     public static void main(String[] args) {
         SpringApplication.run(BellIntegratorPracticeApplication.class, args);
     }
-
 }
