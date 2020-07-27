@@ -11,8 +11,9 @@ import ru.bellintegrator.practice.dto.organization.request.SaveRequestOrgDto;
 import ru.bellintegrator.practice.dto.organization.request.UpdateRequestOrgDto;
 
 import javax.transaction.Transactional;
-import java.util.Date;
+import java.util.regex.Pattern;
 
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -63,13 +64,16 @@ public class OrganizationControllerTest extends AbsractMvcTest {
     @Test
     public void getOrganization_withIncorrectId() throws Exception {
 
+        String regex = "error code \\w{4}";
+        Pattern pattern = Pattern.compile(regex);
+
         mockMvc.perform(get("/api/organization/200")
                 .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("timestamp").value(new Date().toString()))
-                .andExpect(jsonPath("errors").value("error code A101"));
+                .andExpect(jsonPath("error", matchesPattern(pattern)));
     }
 
     @Test
