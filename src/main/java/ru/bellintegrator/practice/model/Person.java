@@ -69,7 +69,7 @@ public class Person {
     /**
      * ИД документа о гражданстве
      */
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
     private Citizenship citizenship;
 
@@ -83,7 +83,7 @@ public class Person {
     /**
      * ИД оффиса
      */
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 

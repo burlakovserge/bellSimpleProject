@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.dto.organization.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.bellintegrator.practice.dto.Dto;

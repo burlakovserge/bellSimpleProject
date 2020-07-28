@@ -31,4 +31,6 @@ INSERT INTO Citizenship (id, version, country, code) VALUES (1, 0, 'Армени
 
 INSERT INTO Person (id, version, first_name, second_name, middle_name, phone, work_position,
 citizenship_id, document_id, office_id, is_identified)
-VALUES (1, 0, 'Дмитрий', 'Пономарев', 'Леонидович', '+79991112323', 'Генеральный директор', 2, 4, 1, true);
+VALUES (1, 0, 'Dmitry', 'Пономарев', 'Леонидович', '+79991112323', 'Генеральный директор', 2, 4, 1, true),
+(2, 0, 'Irina', 'Макарова', 'Владимировна', '+79270001234', 'Коммерческий директор', 2, 4, 1, true),
+(3, 0, 'Victor', 'Кореньков', 'Сергеевич', '+7910789456', 'Директор', 1, 1, 5, false);

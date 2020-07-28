@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import ru.bellintegrator.practice.AbsractMvcTest;
+import ru.bellintegrator.practice.dto.person.request.FilterRequestPersonDto;
 import ru.bellintegrator.practice.dto.person.request.SaveRequestPersonDto;
 
 import java.time.LocalDate;
@@ -59,6 +60,25 @@ public class PersonControllerTest extends AbsractMvcTest {
                 .andDo(print())
                 .andExpect(jsonPath("data.result").value("success"));
 
+    }
+
+    @Test
+    public void getList() throws Exception {
+        FilterRequestPersonDto filterDto = new FilterRequestPersonDto(
+                1, null, null, null, null, null,
+                null);
+
+        String jsonRequest = mapper.writeValueAsString(filterDto);
+
+        mockMvc.perform(post("/api/user/list")
+                .content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.data.[0].firstName").value("Dmitry"))
+                .andExpect(jsonPath("$.data.[0].id").value(1))
+                .andExpect(jsonPath("$.data.[1].firstName").value("Irina"))
+                .andExpect(jsonPath("$.data.[1].id").value(2));
     }
 
 }

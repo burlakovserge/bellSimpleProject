@@ -48,12 +48,25 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void update(UpdateRequestOrgDto requestDto) {
+//        Organization currentOrg = dao.findById(requestDto.getId());
+//        if (requestDto.getPhone() == null) {
+//            requestDto.setPhone(currentOrg.getPhone());
+//        }
+//        Organization updatedOrg = modelMapper.map(requestDto, Organization.class);
+//        dao.update(updatedOrg);
         Organization currentOrg = dao.findById(requestDto.getId());
-        if (requestDto.getPhone() == null) {
-            requestDto.setPhone(currentOrg.getPhone());
+        currentOrg.setName(requestDto.getName());
+        currentOrg.setFullName(requestDto.getFullName());
+        currentOrg.setInn(requestDto.getInn());
+        currentOrg.setKpp(requestDto.getKpp());
+        currentOrg.setAddress(requestDto.getAddress());
+        if (requestDto.getPhone() != null) {
+            currentOrg.setPhone(requestDto.getPhone());
         }
-        Organization updatedOrg = modelMapper.map(requestDto, Organization.class);
-        dao.update(updatedOrg);
+        if (requestDto.getIsActive() != null) {
+            currentOrg.setIsActive(requestDto.getIsActive());
+        }
+        dao.update(currentOrg);
     }
 
     /**

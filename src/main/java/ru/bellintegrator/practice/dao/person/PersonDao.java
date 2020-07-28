@@ -28,5 +28,7 @@ public interface PersonDao {
      * @param request - объект с полями, по которым выполнять фильтрацию
      * @return возвращает список организаций
      */
-    List<Person> getAll(FilterRequestPersonDto request);
+    List<Person> getList(FilterRequestPersonDto request);
+
+    void update(Person person);
 }

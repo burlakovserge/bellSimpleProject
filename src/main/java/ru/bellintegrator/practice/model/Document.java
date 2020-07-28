@@ -51,7 +51,7 @@ public class Document {
     /**
      * ИД в каталоге документов
      */
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "catalogue_docs_id", nullable = false)
     private CatalogueDocInfo catalogueDocInfo;
 
