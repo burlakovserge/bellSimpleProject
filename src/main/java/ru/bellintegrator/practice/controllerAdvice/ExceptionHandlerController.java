@@ -33,7 +33,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler({NoResultException.class, HttpClientErrorException.BadRequest.class})
     protected ErrorView handleThereIsNoSuchResultException(NoResultException ex) {
         String errorCode = RandomStringUtils.randomAlphanumeric(4);
-        log.warn("Error code " + errorCode + ": " + ex.getMessage());
+        log.warn("Error code " + errorCode + ": " + ex.getMessage() + " --- "+ ex.getCause());
         return new ErrorView(errorCode, "Oops, something's wrong. We are already working");
     }
 }

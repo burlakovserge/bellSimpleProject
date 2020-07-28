@@ -1,6 +1,5 @@
 package ru.bellintegrator.practice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,13 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Citizenship {
+@Table(name = "Catalogue_Docs")
+public class CatalogueDocInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -30,17 +31,16 @@ public class Citizenship {
      */
     @Version
     @Setter(AccessLevel.NONE)
-    @JsonIgnore
     private Integer version;
 
     /**
-     * Страна
+     * Тип документа
      */
-    @Column(name = "country", length = 25, nullable = false)
+    @Column(name = "name", length = 120, nullable = false)
     private String name;
 
     /**
-     * Код страны
+     * Код документа
      */
     @Column(name = "code", length = 25, nullable = false)
     private String code;

@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 @Entity
 @NoArgsConstructor
@@ -28,33 +29,82 @@ public class Person {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "first_name", nullable = false)
+    /**
+     * Служебное поле hibernate
+     */
+    @Version
+    @Setter(AccessLevel.NONE)
+    private Integer version;
+
+    /**
+     * Имя
+     */
+    @Column(name = "first_name", length = 50,nullable = false)
     private String firstName;
 
-    @Column(name = "second_name")
+    /**
+     * Фамилия
+     */
+    @Column(name = "second_name", length = 50)
     private String secondName;
 
-    @Column(name = "middle_name")
+    /**
+     * Отчество
+     */
+    @Column(name = "middle_name", length = 50)
     private String middleName;
 
-    @Column(name = "phone")
+    /**
+     * Номер телефона
+     */
+    @Column(name = "phone", length = 30)
     private String phone;
 
-    @Column(name = "work_position", nullable = false)
-    private String workPosition;
+    /**
+     * Должность
+     */
+    @Column(name = "work_position", length = 50, nullable = false)
+    private String position;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "citizenship_id", nullable = false)
+    /**
+     * ИД документа о гражданстве
+     */
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "citizenship_id")
     private Citizenship citizenship;
 
+    /**
+     * ИД документа удостоверяющего личность
+     */
     @OneToOne
-    @JoinColumn(name = "document_id", nullable = false)
+    @JoinColumn(name = "document_id")
     private Document document;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /**
+     * ИД оффиса
+     */
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
+    /**
+     * Прошел идентификацию или нет
+     */
     @Column(name = "is_identified")
     private Boolean isIdentified;
+
+    public Person(Integer version, String firstName, String secondName, String middleName, String phone, String position, Citizenship citizenship, Document document, Office office, Boolean isIdentified) {
+        this.version = version;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.phone = phone;
+        this.position = position;
+        this.citizenship = citizenship;
+        this.document = document;
+        this.office = office;
+        this.isIdentified = isIdentified;
+    }
+
+
 }

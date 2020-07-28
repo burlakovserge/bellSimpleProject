@@ -1,8 +1,10 @@
 package ru.bellintegrator.practice.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,27 +24,45 @@ import javax.persistence.Version;
 public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @Column(name = "id")
     private Integer id;
 
     /**
      * Служебное поле hibernate
      */
     @Version
+    @Setter(AccessLevel.NONE)
     private Integer version;
 
-    @Column(name = "name", nullable = false)
+    /**
+     * Название офиса
+     */
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "address", nullable = false)
+    /**
+     * Адрес
+     */
+    @Column(name = "address", length = 50, nullable = false)
     private String address;
 
-    @Column(name = "phone")
+    /**
+     * Номер телефона
+     */
+    @Column(name = "phone", length = 30)
     private String phone;
 
+    /**
+     * Существует или ликвидирован
+     */
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /**
+     * ИД организации к которой относится
+     */
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "org_id", nullable = false)
     private Organization organization;
 

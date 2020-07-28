@@ -26,11 +26,6 @@ public class OrganizationControllerTest extends AbsractMvcTest {
     @Autowired
     ObjectMapper mapper;
 
-    @Override
-    protected void doInit(){
-        //
-    }
-
     @Test
     public void saveOrganization() throws Exception {
         SaveRequestOrgDto requestOrganization = new SaveRequestOrgDto(

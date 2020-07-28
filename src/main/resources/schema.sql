@@ -1,12 +1,13 @@
 CREATE TABLE IF NOT EXISTS Person (
   id                INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+  version           INTEGER     NOT NULL    COMMENT 'Служебное поле hibernate',
   first_name        VARCHAR(50) NOT NULL    COMMENT 'Имя',
   second_name       VARCHAR(50)             COMMENT 'Фамилия',
   middle_name       VARCHAR(50)             COMMENT 'Отчество',
   phone             VARCHAR(30)             COMMENT 'Телефон',
   work_position     VARCHAR(50) NOT NULL    COMMENT 'Должность',
-  citizenship_id    INTEGER     NOT NULL    COMMENT 'ID гражданства',
-  document_id       INTEGER     NOT NULL    COMMENT 'ID документа удостоверяющего личность',
+  citizenship_id    INTEGER                 COMMENT 'ID гражданства',
+  document_id       INTEGER                 COMMENT 'ID документа удостоверяющего личность',
   office_id         INTEGER     NOT NULL    COMMENT 'ID оффиса',
   is_identified     BIT
 );
@@ -14,7 +15,8 @@ COMMENT ON TABLE Person IS 'Человек';
 
 CREATE TABLE IF NOT EXISTS Office (
   id          INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT ,
-  name        VARCHAR(50) NOT NULL,
+  version     INTEGER     NOT NULL COMMENT 'Служебное поле hibernate',
+  name        VARCHAR(50) NOT NULL COMMENT 'Название офиса',
   address     VARCHAR(50) NOT NULL COMMENT 'Адрес',
   phone       VARCHAR(30)          COMMENT 'Телефон',
   is_active   BIT,
@@ -37,6 +39,7 @@ COMMENT ON TABLE Organization IS 'Организация';
 
 CREATE TABLE IF NOT EXISTS Citizenship (
    id       INTEGER               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   version  INTEGER     NOT NULL  COMMENT 'Служебное поле hibernate',
    country  VARCHAR(25) NOT NULL,
    code     VARCHAR(25) NOT NULL
 );
@@ -44,6 +47,7 @@ COMMENT ON TABLE Citizenship IS 'Гражданство';
 
 CREATE TABLE IF NOT EXISTS Document (
    id                INTEGER              COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   version           INTEGER     NOT NULL COMMENT 'Служебное поле hibernate',
    number            VARCHAR(30) NOT NULL COMMENT 'Номер документа',
    doc_date          DATE        NOT NULL COMMENT 'Дата документа',
    catalogue_docs_id INTEGER     NOT NULL COMMENT 'ID документа в каталоге документов'
@@ -52,6 +56,7 @@ COMMENT ON TABLE Document IS 'Документ удостоверяющий ли
 
 CREATE TABLE IF NOT EXISTS Catalogue_Docs (
    id       INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+   version  INTEGER      NOT NULL   COMMENT 'Служебное поле hibernate',
    name     VARCHAR(120) NOT NULL,
    code     VARCHAR(25)  NOT NULL
 );
