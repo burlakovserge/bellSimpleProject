@@ -1,8 +1,10 @@
 package ru.bellintegrator.practice.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +24,7 @@ import javax.persistence.OneToOne;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     @Column(name = "id")
     private Integer id;
 
@@ -40,7 +43,7 @@ public class Person {
     @Column(name = "work_position", nullable = false)
     private String workPosition;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id", nullable = false)
     private Citizenship citizenship;
 

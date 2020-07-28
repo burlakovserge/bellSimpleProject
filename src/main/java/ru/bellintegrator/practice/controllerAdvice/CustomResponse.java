@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import ru.bellintegrator.practice.dto.Dto;
+import ru.bellintegrator.practice.utils.ErrorView;
 import ru.bellintegrator.practice.utils.ResponseVoidMethod;
 import ru.bellintegrator.practice.utils.ResponseSuccess;
 
@@ -22,11 +23,11 @@ public class CustomResponse implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (methodParameter.getContainingClass().isAnnotationPresent(RestController.class)) {
-            if ((o instanceof Dto) || (o instanceof Collection)) {
-                return new ResponseSuccess(o);
-            }
-            return new ResponseSuccess(new ResponseVoidMethod("success"));
+
+        if (!(o instanceof ErrorView)){
+            if (o == null){
+                return new ResponseSuccess(new ResponseVoidMethod("success"));
+            } else return new ResponseSuccess(o);
         }
         return o;
     }

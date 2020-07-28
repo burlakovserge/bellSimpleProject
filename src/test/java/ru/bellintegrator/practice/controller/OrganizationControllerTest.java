@@ -27,7 +27,7 @@ public class OrganizationControllerTest extends AbsractMvcTest {
     ObjectMapper mapper;
 
     @Override
-    protected void doInit() throws Exception {
+    protected void doInit(){
         //
     }
 
@@ -64,16 +64,16 @@ public class OrganizationControllerTest extends AbsractMvcTest {
     @Test
     public void getOrganization_withIncorrectId() throws Exception {
 
-        String regex = "error code \\w{4}";
+        String regex = "\\w{4}";
         Pattern pattern = Pattern.compile(regex);
 
         mockMvc.perform(get("/api/organization/200")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isNotFound())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("error", matchesPattern(pattern)));
+                .andExpect(jsonPath("errorCode", matchesPattern(pattern)))
+        .andExpect(jsonPath("message").value("Oops, something's wrong. We are already working"));
     }
 
     @Test
